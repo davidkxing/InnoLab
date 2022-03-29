@@ -1,9 +1,9 @@
-InnoLab Raspberry Pi Arcade Game
+# InnoLab Raspberry Pi Arcade Game
 
-Overview
+## Overview
 
-/Inno_Core:
-contains the sourcecode of our libretro core. Maybe a game sourcefile code will follow.
+- Inno_Core:
+	contains the sourcecode of our libretro core. Maybe a game sourcefile code will follow.
 
-/Inno_Sprints: 
-Sprint Review Protocols from all semesters
+- Inno_Sprints: 
+	Sprint Review Protocols from all semesters
