@@ -1,0 +1,60 @@
+{
+	"configurations" : 
+	[
+		{
+			"directories" : 
+			[
+				{
+					"build" : ".",
+					"hasInstallRule" : true,
+					"minimumCMakeVersion" : 
+					{
+						"string" : "3.8"
+					},
+					"projectIndex" : 0,
+					"source" : ".",
+					"targetIndexes" : 
+					[
+						0
+					]
+				}
+			],
+			"name" : "Debug",
+			"projects" : 
+			[
+				{
+					"directoryIndexes" : 
+					[
+						0
+					],
+					"name" : "Project",
+					"targetIndexes" : 
+					[
+						0
+					]
+				}
+			],
+			"targets" : 
+			[
+				{
+					"directoryIndex" : 0,
+					"id" : "Pong::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-Pong-Debug-825ee76ccc86da0659dd.json",
+					"name" : "Pong",
+					"projectIndex" : 0
+				}
+			]
+		}
+	],
+	"kind" : "codemodel",
+	"paths" : 
+	{
+		"build" : "D:/PEOPLE_FOLDER/DAVID_FOLDER/FH_TECHNIKUM/5.Semester(3.Semester)/INNO/InnoLab_Repo/Inno_Core/src/out/build/x64-Debug",
+		"source" : "D:/PEOPLE_FOLDER/DAVID_FOLDER/FH_TECHNIKUM/5.Semester(3.Semester)/INNO/InnoLab_Repo/Inno_Core/src"
+	},
+	"version" : 
+	{
+		"major" : 2,
+		"minor" : 2
+	}
+}
