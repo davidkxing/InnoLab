@@ -9,8 +9,3 @@ add_library (Pong SHARED "libretro.h" "core.h" "core.cpp" "game.h" "game.cpp" "p
 install(TARGETS Pong DESTINATION .) # C:/RetroArch-Win64/downloads/INNOCore
 # install(FILES name.h DESTINATION path)
 # TODO: Add tests and install targets if needed.
-
-
-
-# .so file for raspberry pie
-# this file compiles all the parts

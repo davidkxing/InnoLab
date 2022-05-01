@@ -1,6 +1,0 @@
-D:/PEOPLE_FOLDER/DAVID_FOLDER/FH_TECHNIKUM/5.Semester(3.Semester)/INNO/InnoLab_Repo/Inno_Core/src/out/build/x64-Debug/CMakeFiles/Pong.dir
-D:/PEOPLE_FOLDER/DAVID_FOLDER/FH_TECHNIKUM/5.Semester(3.Semester)/INNO/InnoLab_Repo/Inno_Core/src/out/build/x64-Debug/CMakeFiles/install/local.dir
-D:/PEOPLE_FOLDER/DAVID_FOLDER/FH_TECHNIKUM/5.Semester(3.Semester)/INNO/InnoLab_Repo/Inno_Core/src/out/build/x64-Debug/CMakeFiles/install.dir
-D:/PEOPLE_FOLDER/DAVID_FOLDER/FH_TECHNIKUM/5.Semester(3.Semester)/INNO/InnoLab_Repo/Inno_Core/src/out/build/x64-Debug/CMakeFiles/edit_cache.dir
-D:/PEOPLE_FOLDER/DAVID_FOLDER/FH_TECHNIKUM/5.Semester(3.Semester)/INNO/InnoLab_Repo/Inno_Core/src/out/build/x64-Debug/CMakeFiles/rebuild_cache.dir
-D:/PEOPLE_FOLDER/DAVID_FOLDER/FH_TECHNIKUM/5.Semester(3.Semester)/INNO/InnoLab_Repo/Inno_Core/src/out/build/x64-Debug/CMakeFiles/list_install_components.dir

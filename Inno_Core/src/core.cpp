@@ -232,7 +232,7 @@ static void audio_callback(void)
     for (unsigned i = 0; i < 30000 / 60; i++, phase++)
     {
         int16_t val = 0x800 * sinf(2.0f * M_PI * phase * 300.0f / 30000.0f);
-        //audio_cb(val, val);
+        audio_cb(val, val);
     }
 
     phase %= 100;
@@ -283,7 +283,7 @@ bool retro_load_game(const struct retro_game_info* info)
 
     use_audio_cb = environ_cb(RETRO_ENVIRONMENT_SET_AUDIO_CALLBACK, &audio_cb);
 
-    //check_variables();   //does nothing so far
+    check_variables();   //does nothing so far
 
     (void)info;
 
