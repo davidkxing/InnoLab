@@ -4,12 +4,20 @@ bool key_up = false;
 bool key_down = false;
 bool key_left = false;
 bool key_right = false;
+bool key_start = false;
+bool tempStart = false;
+int isGame = 0;
+
+
 
 Ball ball(VIDEO_WIDTH/2, VIDEO_HEIGHT/2, 20);//pong
 Paddle paddleLeft(10, VIDEO_HEIGHT/2, 20,100);
 Paddle paddleRight(VIDEO_WIDTH-10, VIDEO_HEIGHT/2, 20,100);
+MainMenu activeButton(VIDEO_WIDTH / 2, VIDEO_HEIGHT / 2, 100, 30);
+MainMenu selectOption(VIDEO_WIDTH / 2, VIDEO_HEIGHT / 2, 20, 20);
 int scoreLeft = 0;
 int scoreRight = 0;
+
 
 void game_init(){
     printf("in game_init\n");
@@ -86,7 +94,7 @@ void score_display(uint8_t* frame_buf){
     }
 }
 
-void game_draw(uint8_t* frame_buf){
+void game_print(uint8_t* frame_buf){
     for (int j = 0; j < VIDEO_PIXELS * 4; j++) {//wipe display
             frame_buf[j] = 50;
     }
@@ -96,8 +104,17 @@ void game_draw(uint8_t* frame_buf){
     score_display(frame_buf);
 }
 
-void game_run(){
-    
+void menu_print(uint8_t* frame_buf){
+    for (int j = 0; j < VIDEO_PIXELS * 4; j++) {//wipe display
+            frame_buf[j] = 50;
+    }
+    activeButton.displayButtons(frame_buf, VIDEO_WIDTH, VIDEO_HEIGHT);
+    selectOption.displaySelection(frame_buf, VIDEO_WIDTH, VIDEO_HEIGHT);
+}
+
+
+
+void run_pong() {
     ball.move();
     paddleRight.move();
     paddleLeft.move();
@@ -105,17 +122,17 @@ void game_run(){
     //ball collision detection
     if (ball.right() > VIDEO_WIDTH) {
         scoreLeft++;
-        ball.x = VIDEO_WIDTH/2;
-        ball.y = VIDEO_HEIGHT/2;
+        ball.x = VIDEO_WIDTH / 2;
+        ball.y = VIDEO_HEIGHT / 2;
         ball.speedX = -ball.speedX;
-        ball.speedY = rand()%7-3; // Giving the ball speed in y-axis between -3 and 3
+        ball.speedY = rand() % 7 - 3; // Giving the ball speed in y-axis between -3 and 3
     }
     if (ball.left() < 0) {
         scoreRight++;
-        ball.x = VIDEO_WIDTH/2;
-        ball.y = VIDEO_HEIGHT/2;
+        ball.x = VIDEO_WIDTH / 2;
+        ball.y = VIDEO_HEIGHT / 2;
         ball.speedX = -ball.speedX;
-        ball.speedY = rand()%7-3;
+        ball.speedY = rand() % 7 - 3;
     }
     if (ball.bottom() > VIDEO_HEIGHT) {
         ball.speedY = -ball.speedY;
@@ -126,43 +143,77 @@ void game_run(){
 
     //paddles collision detection
     if (paddleLeft.bottom() > VIDEO_HEIGHT) {
-        paddleLeft.y = VIDEO_HEIGHT-paddleLeft.h/2;
+        paddleLeft.y = VIDEO_HEIGHT - paddleLeft.h / 2;
     }
     if (paddleLeft.top() < 0) {
-        paddleLeft.y = paddleLeft.h/2;
+        paddleLeft.y = paddleLeft.h / 2;
     }
     if (paddleRight.bottom() > VIDEO_HEIGHT) {
-        paddleRight.y = VIDEO_HEIGHT-paddleRight.h/2;
+        paddleRight.y = VIDEO_HEIGHT - paddleRight.h / 2;
     }
     if (paddleRight.top() < 0) {
-        paddleRight.y = paddleRight.h/2;
+        paddleRight.y = paddleRight.h / 2;
     }
 
     if (key_up) {
-        paddleRight.speedY=-10;
-    } else if (key_down) {
-        paddleRight.speedY=10;
-    } else{
-        paddleRight.speedY=0;
+        paddleRight.speedY = -10;
+    }
+    else if (key_down) {
+        paddleRight.speedY = 10;
+    }
+    else {
+        paddleRight.speedY = 0;
     }
     if (key_left) {
-        paddleLeft.speedY=-10;
-    } else if (key_right) {
-        paddleLeft.speedY=10;
-    } else{
-        paddleLeft.speedY=0;
+        paddleLeft.speedY = -10;
+    }
+    else if (key_right) {
+        paddleLeft.speedY = 10;
+    }
+    else {
+        paddleLeft.speedY = 0;
     }
     // If the ball gets behind the paddle 
     // AND if the ball is int he area of the paddle (between paddle top and bottom)
     // AND the ball hasn't already bounced of
     // bounce the ball to other direction
     //left paddle
-    if ( ball.left() < paddleLeft.right() && ball.y > paddleLeft.top() && ball.y < paddleLeft.bottom() && ball.speedX < 0){
+    if (ball.left() < paddleLeft.right() && ball.y > paddleLeft.top() && ball.y < paddleLeft.bottom() && ball.speedX < 0) {
         ball.speedX = -ball.speedX;
     }
     //right paddle
-    if ( ball.right() > paddleRight.left() && ball.y > paddleRight.top() && ball.y < paddleRight.bottom() && ball.speedX > 0) {
+    if (ball.right() > paddleRight.left() && ball.y > paddleRight.top() && ball.y < paddleRight.bottom() && ball.speedX > 0) {
         ball.speedX = -ball.speedX;
+    }
+}
+
+void game_run() {   //main logic
+    //if (key_start) {  error check
+    //    printf("enter has been clicked\n");
+    //}
+    //if (key_up) {
+    //    printf("up arrow has been clicked\n");
+    //}
+    if (selectOption.checkState(key_start) || tempStart == true) {
+        isGame = 1;
+        tempStart = true;
+        printf("in startbutton\n");
+        run_pong();
+    }
+    else if (!selectOption.checkState(key_start) && tempStart == false) {
+        isGame = 0;
+        printf("returned false\n");
+        //retro_unload_game();
+    }
+}
+
+int inGameCheck() {
+    if (isGame == 1) {
+        return 1;
+    }
+    else
+    {
+        return 0;
     }
 }
 

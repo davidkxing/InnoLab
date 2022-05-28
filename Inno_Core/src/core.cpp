@@ -1,5 +1,7 @@
 //implement all necessary functions from libretro.h in here
 #include "core.h"
+#pragma comment(lib, "Winmm.lib")
+#include <mmsystem.h>
 
 static uint8_t* frame_buf;
 static struct retro_log_callback logging;
@@ -9,6 +11,8 @@ static float last_aspect;
 static float last_sample_rate;
 char retro_base_directory[4096];          //directory path
 char retro_game_path[4096];
+float timeVal;
+int tempValue = 1;
 
 std::string teststring; //todo: remove later with implementing better logging functionality
 
@@ -229,11 +233,11 @@ static void audio_callback(void)
     //teststring += "(): test\n";
     //log_cb(RETRO_LOG_INFO, teststring.data());
 
-    for (unsigned i = 0; i < 30000 / 60; i++, phase++)
+    /*for (unsigned i = 0; i < 30000 / 60; i++, phase++) //this is some noise and stuff
     {
         int16_t val = 0x800 * sinf(2.0f * M_PI * phase * 300.0f / 30000.0f);
         audio_cb(val, val);
-    }
+    }*/
 
     phase %= 100;
 }
@@ -249,6 +253,7 @@ static void audio_set_state(bool enable)
 //as well as a memory chunk of the already loaded file.
 bool retro_load_game(const struct retro_game_info* info)
 {
+    
     //due to no-game-mode info == NULL
 
     struct retro_input_descriptor desc[] = {
@@ -326,28 +331,52 @@ such as soft-patching to work correctly.
 //The requirements for the callbacks are that video callback is called exactly once, i.e. it does not have to come last. 
 //Also, input polling must be called at least once.
 
+void playAudio() {
+    PlaySound(TEXT("D:/bg_music.wav"), NULL, SND_ASYNC);    //change absolute path from bg_music.wav
+    Sleep(10);
+}
+
 
 void retro_run(void)
 {
-    //print frame
-    game_draw(frame_buf);
-    video_cb(frame_buf, VIDEO_WIDTH, VIDEO_HEIGHT, VIDEO_WIDTH * 4);  //todo: 4=bytes_per_pixel -> const
+    Timer timer;
+    printf("%f\n", timeVal);
+    if (timeVal >= 14.0f) {
+        timeVal = 0;
+        //print frame
+        if (inGameCheck() == 1) {
+            if (tempValue) {
+                playAudio();
+                tempValue = 0;
+            }
+            game_print(frame_buf);
+        }
+        else {
+            menu_print(frame_buf);
+        }
+        video_cb(frame_buf, VIDEO_WIDTH, VIDEO_HEIGHT, VIDEO_WIDTH * 4);  //todo: 4=bytes_per_pixel -> const
 
-    //get user input
-    input_poll_cb(); //port, device, index, id -> int16_t
-    key_up = (input_state_cb(0, RETRO_DEVICE_JOYPAD, 0, RETRO_DEVICE_ID_JOYPAD_UP)) ? true : false;
-    key_down = (input_state_cb(0, RETRO_DEVICE_JOYPAD, 0, RETRO_DEVICE_ID_JOYPAD_DOWN)) ? true : false;
-    key_left = (input_state_cb(0, RETRO_DEVICE_JOYPAD, 0, RETRO_DEVICE_ID_JOYPAD_LEFT)) ? true : false;
-    key_right = (input_state_cb(0, RETRO_DEVICE_JOYPAD, 0, RETRO_DEVICE_ID_JOYPAD_RIGHT)) ? true : false;
+        //get user input
+        input_poll_cb(); //port, device, index, id -> int16_t
+        key_up = (input_state_cb(0, RETRO_DEVICE_JOYPAD, 0, RETRO_DEVICE_ID_JOYPAD_UP)) ? true : false;
+        key_down = (input_state_cb(0, RETRO_DEVICE_JOYPAD, 0, RETRO_DEVICE_ID_JOYPAD_DOWN)) ? true : false;
+        key_left = (input_state_cb(0, RETRO_DEVICE_JOYPAD, 0, RETRO_DEVICE_ID_JOYPAD_LEFT)) ? true : false;
+        key_right = (input_state_cb(0, RETRO_DEVICE_JOYPAD, 0, RETRO_DEVICE_ID_JOYPAD_RIGHT)) ? true : false;
+        key_start = (input_state_cb(0, RETRO_DEVICE_JOYPAD, 0, RETRO_DEVICE_ID_JOYPAD_START)) ? true : false;
 
-    //progess game
-    game_run();
-    
-    /*//don't know what this does or what check_variables() is supposed to do
-    bool updated = false;
-    if (environ_cb(RETRO_ENVIRONMENT_GET_VARIABLE_UPDATE, &updated) && updated)
-        check_variables();
-    */
+        //progess game
+        game_run();
+
+        /*//don't know what this does or what check_variables() is supposed to do
+        bool updated = false;
+        if (environ_cb(RETRO_ENVIRONMENT_GET_VARIABLE_UPDATE, &updated) && updated)
+            check_variables();
+        */
+
+        //16.6ms pro Frame == 60fps
+        //tempMsChecker = 0; da drinnen wird ms
+        //tempMsChecker < 16.6ms
+    }
 }
 
 /*

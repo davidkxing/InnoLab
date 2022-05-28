@@ -1,0 +1,2 @@
+D:/PEOPLE_FOLDER/DAVID_FOLDER/FH_TECHNIKUM/5.Semester(3.Semester)/INNO/InnoLab_Repo/Inno_Core/out/install/windows-default/./Pong.lib
+D:/PEOPLE_FOLDER/DAVID_FOLDER/FH_TECHNIKUM/5.Semester(3.Semester)/INNO/InnoLab_Repo/Inno_Core/out/install/windows-default/./Pong.dll

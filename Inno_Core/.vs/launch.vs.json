@@ -5,16 +5,9 @@
     {
       "type": "dll",
       "exe": "",
-      "project": "src\\CMakeLists.txt",
-      "projectTarget": "Pong.dll",
-      "name": "Pong.dll"
-    },
-    {
-      "type": "dll",
-      "exe": "",
-      "project": "src\\CMakeLists.txt",
-      "projectTarget": "Game.dll",
-      "name": "Game.dll"
+      "project": "CMakeLists.txt",
+      "projectTarget": "Pong.dll (src\\Pong.dll)",
+      "name": "Pong.dll (src\\Pong.dll)"
     }
   ]
 }

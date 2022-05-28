@@ -2,8 +2,7 @@
 //but which are generally core-specific or need libreto.h
 
 //#include "libretro.h"
-#ifndef CORE_H
-#define CORE_H
+#pragma once
 
 #define _USE_MATH_DEFINES
 #include <stdio.h>
@@ -14,6 +13,8 @@
 #include <cmath> //#include <math.h>
 #include <thread>
 #include <cstring>//for memset
+#include <chrono>
+#include <thread>
 
 #if defined(_WIN32) && !defined(_XBOX)
 #include <windows.h>
@@ -26,4 +27,4 @@
 #define VIDEO_HEIGHT 384 //384
 #define VIDEO_PIXELS VIDEO_WIDTH * VIDEO_HEIGHT
 
-#endif //CORE_H
+extern float timeVal;

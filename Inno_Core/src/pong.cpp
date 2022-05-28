@@ -57,10 +57,10 @@ float Ball::bottom() {
 }
 
 Paddle::Paddle(float tempX, float tempY, float tempW, float tempH){
-    x = tempX;
-    y = tempY;
-    w = tempW;
-    h = tempH;
+    x = tempX;  //x pixels from the walls
+    y = tempY;  //height/2 = middle of the window
+    w = tempW;  //width 
+    h = tempH;  //height
     speedY = 0;
     speedX = 0;
     //c=(255);
